@@ -1391,10 +1391,19 @@ class GraphicViewWidget(QtWidgets.QGraphicsView):
         if not path:
             return
         path = unicode(path)
-        
+
         # Check that path exists
-        if not (path and os.path.exists(path)):
-            print '# background image not found: "%s"'%path
+        # and try to load it from the module's images folder
+        # if the path doesn't exist
+        if path:
+            if not os.path.exists(path):
+                newpath = unicode(os.path.join(get_images_folder_path(), os.path.split(path)[1]))
+                if os.path.exists(newpath):
+                    path = newpath
+                else:
+                    print '# background image not found: "%s"'%path
+                    return
+        else:
             return
         
         self.background_image_path = path
