@@ -506,11 +506,21 @@ class SnapshotWidget(BackgroundWidget):
     def set_background(self, path=None):
         '''Set character snapshot picture
         '''
-        if not (path and os.path.exists(unicode(path))):
+        if path:
+            if os.path.exists(path):
+                self.background = unicode(path)
+            else:
+                # try to find the snapshot pic in the module's images folder as a fallback
+                newpath = unicode(os.path.join(get_images_folder_path(), os.path.split(path)[1]))
+                if os.path.exists(newpath):
+                    path = newpath
+                    self.background = unicode(path)
+                else:
+                    path = self._get_default_snapshot()
+                    self.background = None
+        else:
             path = self._get_default_snapshot()
             self.background = None
-        else:
-            self.background = unicode(path)
             
         # Load image
         image = QtGui.QImage(path)
