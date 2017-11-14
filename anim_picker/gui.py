@@ -19,7 +19,7 @@ from handlers import maya_handlers
 from handlers import python_handlers
 
 from handlers import qt_handlers
-from handlers.qt_handlers import QtCore, QtWidgets, QtOpenGL, QtWidgets
+from handlers.qt_handlers import QtCore, QtWidgets, QtOpenGL, QtWidgets, QtGui
 
 from handlers import __EDIT_MODE__
 from handlers import __SELECTION__
